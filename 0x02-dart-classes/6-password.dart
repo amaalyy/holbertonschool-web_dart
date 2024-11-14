@@ -3,27 +3,25 @@ class Password {
 
   Password({String? password}) : _password = password;
 
-  String? get password => _password;
-
-  set password(String? password) {
-    _password = password;
-  }
-
   bool isValid() {
-    String pwd = _password ?? '';
-    if (pwd.length < 8 || pwd.length > 16) {
-      return false;
-    }
-
-    bool hasUppercase = pwd.contains(RegExp(r'[A-Z]'));
-    bool hasLowercase = pwd.contains(RegExp(r'[a-z]'));
-    bool hasDigit = pwd.contains(RegExp(r'\d'));
-
-    return hasUppercase && hasLowercase && hasDigit;
+    if (_password == null) return false;
+    if (_password!.length < 8 || _password!.length > 16) return false;
+    if (!_password!.contains(new RegExp(r'[A-Z]'))) return false;
+    if (!_password!.contains(new RegExp(r'[a-z]'))) return false;
+    if (!_password!.contains(new RegExp(r'[0-9]'))) return false;
+    return true;
   }
 
   @override
   String toString() {
-    return 'Your Password is: $_password';
+    return 'Your Password is: ${_password ?? "not set"}';
+  }
+
+  String? get password {
+    return _password ?? "not set";
+  }
+
+  void set password(String? input) {
+    this._password = input;
   }
 }
